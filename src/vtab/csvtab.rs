@@ -193,6 +193,7 @@ impl Module for CSVModule {
             if vtab.has_headers {
                 {
                     let headers = try!(reader.headers());
+                    println!("my headers {:?}", headers);
                     // headers ignored if cols is not empty
                     if n_col.is_none() && schema.is_none() {
                         cols = headers
@@ -354,12 +355,12 @@ impl VTabCursor for CSVTabCursor {
     }
 }
 
-impl From<csv::Error> for Error {
+/*impl From<csv::Error> for Error {
     fn from(err: csv::Error) -> Error {
         use std::error::Error as StdError;
         Error::ModuleError(String::from(err.description()))
     }
-}
+}*/
 
 #[cfg(test)]
 mod test {
