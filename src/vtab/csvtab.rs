@@ -193,7 +193,6 @@ impl Module for CSVModule {
             if vtab.has_headers {
                 {
                     let headers = try!(reader.headers());
-                    println!("my headers {:?}", headers);
                     // headers ignored if cols is not empty
                     if n_col.is_none() && schema.is_none() {
                         cols = headers

@@ -267,7 +267,7 @@ impl SIQUERYTab {
         tab = tab.replace("\\n", "\n");
 
         csv::ReaderBuilder::new()
-            .terminator(csv::Terminator::Any(b'\n'))
+            //.terminator(csv::Terminator::Any(b'\n'))
             .has_headers(self.has_headers)
             .delimiter(self.delimiter)
             .quote(self.quote)
@@ -426,41 +426,4 @@ mod test {
         }
         db.execute_batch("DROP TABLE siqueryTab").unwrap();
     }
-
-    /*#[test]
-    fn test_siqtab_cursor() {
-
-        let mut wtr = csv::Writer::from_writer(vec![]);
-
-        wtr.serialize(OsVersion {
-            name: "WINDOWS1010".to_string(),
-            platform_os: "WINDOWS".to_string(),
-            version: "".to_string(),
-            major: 0,
-            minor: 0,
-        });
-
-        let db = Connection::open_in_memory().unwrap();
-        siqtab::load_module(&db).unwrap();
-
-        let command =  format!("{}{:?}{}", "CREATE VIRTUAL TABLE siqueryTab USING siquery(table=",String::from_utf8(wtr.into_inner().unwrap()).unwrap(), ", header=yes)");
-
-        let db = Connection::open_in_memory().unwrap();
-        siqtab::load_module(&db).unwrap();
-        db.execute_batch(&command)
-            .unwrap();
-
-        {
-            let mut s =
-                db.prepare(
-                    "SELECT siqueryTab.rowid, v1.* FROM vtab v1 NATURAL JOIN vtab v2 WHERE \
-                     v1.rowid < v2.rowid",
-                ).unwrap();
-
-            let mut rows = s.query(&[]).unwrap();
-            let row = rows.next().unwrap().unwrap();
-            assert_eq!(row.get::<_, i32>(0), 2);
-        }
-        db.execute_batch("DROP TABLE vtab").unwrap();
-    }*/
 }
