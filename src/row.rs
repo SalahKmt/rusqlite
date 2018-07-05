@@ -37,8 +37,6 @@ impl<'stmt> Rows<'stmt> {
                     }))
                 }
                 Ok(false) => {
-
-                    println!("im here !");
                     self.reset();
                     None
                 }
